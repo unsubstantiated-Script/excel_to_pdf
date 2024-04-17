@@ -18,6 +18,28 @@ for filepath in filepaths:
     pdf.cell(50, 8, txt=f"Invoice nr.{invoice_nr}", ln=1)
 
     pdf.set_font('Times', 'B', size=16)
-    pdf.cell(50, 8, txt=f"Date: {doc_date}")
+    pdf.cell(50, 8, txt=f"Date: {doc_date}", ln=1)
+
+    df = pd.read_excel(filepath, sheet_name="Sheet 1")
+
+    columns = df.columns
+    # Looping, removing underscores, and capitalizing
+    columns = [item.replace("_", " ").title() for item in columns]
+    pdf.set_font('Times', size=10)
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(30, 8, txt=columns[0], border=1)
+    pdf.cell(70, 8, txt=columns[1], border=1)
+    pdf.cell(30, 8, txt=columns[2], border=1)
+    pdf.cell(30, 8, txt=columns[3], border=1)
+    pdf.cell(30, 8, txt=columns[4], border=1, ln=1)
+
+    for index,row in df.iterrows():
+        pdf.set_font('Times', size=10)
+        pdf.set_text_color(80, 80, 80)
+        pdf.cell(30, 8, txt=f"{row['product_id']}", border=1)
+        pdf.cell(70, 8, txt=f"{row['product_name']}", border=1)
+        pdf.cell(30, 8, txt=f"{row['amount_purchased']}", border=1)
+        pdf.cell(30, 8, txt=f"{row['price_per_unit']}", border=1)
+        pdf.cell(30, 8, txt=f"{row['total_price']}", border=1, ln=1)
 
     pdf.output(f"PDFs/{filename}.pdf")
