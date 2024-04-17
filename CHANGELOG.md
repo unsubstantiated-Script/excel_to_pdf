@@ -2,7 +2,7 @@ Next Release
 -
 
 v1.1.0
-* Portfolio complete. Just awaits project updates after more work done. 
+* Excel Read to PDF Done
 
 v1.0.0
 * Initial release
