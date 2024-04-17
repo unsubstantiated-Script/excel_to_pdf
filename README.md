@@ -1,1 +1,3 @@
-# excel_to_pdf
+# Excel to PDF
+
+A Python Excel to PDF Generator
