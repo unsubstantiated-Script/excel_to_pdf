@@ -33,7 +33,8 @@ for filepath in filepaths:
     pdf.cell(30, 8, txt=columns[3], border=1)
     pdf.cell(30, 8, txt=columns[4], border=1, ln=1)
 
-    for index,row in df.iterrows():
+    # Print values in body of cells.
+    for index, row in df.iterrows():
         pdf.set_font('Times', size=10)
         pdf.set_text_color(80, 80, 80)
         pdf.cell(30, 8, txt=f"{row['product_id']}", border=1)
@@ -41,5 +42,24 @@ for filepath in filepaths:
         pdf.cell(30, 8, txt=f"{row['amount_purchased']}", border=1)
         pdf.cell(30, 8, txt=f"{row['price_per_unit']}", border=1)
         pdf.cell(30, 8, txt=f"{row['total_price']}", border=1, ln=1)
+
+    # Space out and add total sum
+    total_sum = df['total_price'].sum()
+    pdf.set_font('Times', size=10)
+    pdf.set_text_color(80, 80, 80)
+    pdf.cell(30, 8, txt="", border=1)
+    pdf.cell(70, 8, txt="", border=1)
+    pdf.cell(30, 8, txt="", border=1)
+    pdf.cell(30, 8, txt="", border=1)
+    pdf.cell(30, 8, txt=str(total_sum), border=1, ln=1)
+
+    # Add total sum sentence
+    pdf.set_font('Times', size=10, style='B')
+    pdf.cell(30, 8, txt=f"The total price is {total_sum}", ln=1)
+
+    # Add Company Name and Logo
+    pdf.set_font('Times', size=14, style='B')
+    pdf.cell(25, 8, txt=f"PythonHow")
+    pdf.image("pythonhow.png", w=10)
 
     pdf.output(f"PDFs/{filename}.pdf")
